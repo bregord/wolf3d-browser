@@ -1,36 +1,8 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
 
 (function($) {
 
 // these files are preloaded while the title screen is showing
 var files = [
-	"js/requestanimframe.js",
-
     "js/wolf.js",
     "js/random.js",
     "js/angle.js",
@@ -39,6 +11,8 @@ var files = [
     "js/sound.js",
     "js/menu.js",
     "js/file.js",
+    "js/episodes.js",
+    "js/maps.js",
     "js/game.js",
     "js/player.js",
     "js/sprites.js",
@@ -54,9 +28,6 @@ var files = [
     "js/level.js",
     "js/raycaster.js",
     "js/renderer.js",
-   
-    "js/episodes.js",
-    "js/maps.js",
 
     "preload!art/menubg_main.png",
     "preload!art/menuitems.png",
@@ -105,6 +76,12 @@ $(document).ready(function() {
     
     Modernizr.load([
         {
+            test : window.requestAnimationFrame,
+            nope : "js/requestAnimFrame.js"
+        },{
+            test : window.atob && window.btoa,
+            nope : "js/base64.js"
+        },{
             load : files,
             callback : function(file) {
                 progress.width((++n / files.length) * 100 + "%");

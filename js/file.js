@@ -1,30 +1,3 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
- 
 /** 
  * @namespace 
  * @description Binary file reading
@@ -59,28 +32,6 @@ Wolf.File = (function() {
         xhr.send(null);
     }
     
-	
-	function atob(str) {
-		str = str.replace(/=+$/, "");
-		var b64chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
-			a, b, c, b1, b2, b3, b4, 
-			chr = String.fromCharCode,
-			out = [];
-		for (var i=0,len=str.length;i<len;) {
-			b1 = b64chars.indexOf(str.charAt(i++));
-			b2 = b64chars.indexOf(str.charAt(i++));
-			b3 = b64chars.indexOf(str.charAt(i++));
-			b4 = b64chars.indexOf(str.charAt(i++));
-
-			a = ((b1 & 0x3F) << 2) | ((b2 >> 4) & 0x3);
-			b = ((b2 & 0xF) << 4) | ((b3 >> 2) & 0xF);
-			c = ((b3 & 0x3) << 6) | (b4 & 0x3F);
-
-			out.push(chr(a), chr(b), chr(c));
-		}
-		return out.join("");
-	}
-	
     /**
      * @description Open a file from base64 filetable
      * @memberOf Wolf.File

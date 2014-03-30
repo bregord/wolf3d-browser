@@ -1,30 +1,3 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
- 
 /** 
  * @namespace 
  * @description Game management
@@ -48,6 +21,8 @@ Wolf.Game = (function() {
         gd_medium       : 2,
         gd_hard         : 3
     });
+
+var controllerOptions = {enableGestures: true};
 
     var rendering = false,
         playing = false,
@@ -86,6 +61,8 @@ Wolf.Game = (function() {
         ticsPerSecond = 70,
         lastTimeCount = 0;
         
+
+
     /**
      * @description Build the movement, angles, and buttons for a frame of action:
      *   Player.angle
@@ -96,6 +73,9 @@ Wolf.Game = (function() {
      * @param {object} player The player object.
      * @param {number} tics The number of tics since last frame.
      */
+
+
+
     function updatePlayerControls(player, tics) {
         var moveValue,
             running = false,
@@ -574,7 +554,7 @@ Wolf.Game = (function() {
         }
         $("#game .fps").show();
         */
-        
+       
         Wolf.Renderer.init();
         
         $("#game .renderer").show();
@@ -589,6 +569,8 @@ Wolf.Game = (function() {
             hndRender = requestAnimationFrame(nextFrame);
             frameNum++;
         }
+
+
         rendering = true;
         nextFrame();
     }

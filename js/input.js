@@ -1,35 +1,114 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
- 
 /** 
  * @namespace 
  * @description Functions for capturing keyboard/mouse input
  */
+
+
 Wolf.Input = (function() {
+
+
+
+var controllerOptions = {enableGestures: true};
+
+Leap.loop(controllerOptions, function(frame) {
+                         
+    if(frame.pointables.length > 0)
+    {
+    
+        var pointable = frame.pointables[0];
+        var stabilizedPosition = pointable.stabilizedTipPosition;
+        var tipPosition = pointable.tipPosition;
+        var direction = pointable.direction;
+        var speed = pointable.tipVelocity;
+        
+        var action = 0;
+
+        if(tipPosition[2] < -70){
+        
+        keys[38] = true;
+
+        action = 1;
+
+      }
+
+       if(tipPosition[2] >= -70){
+        
+        keys[38] = false;
+
+      }
+
+
+        //keys[39] = false;
+        //keys[37] = false;
+
+        if(tipPosition[0] < 80 &&  tipPosition[0] > -80 ){
+            console.log("nothing");
+        keys[39] = false;
+        keys[37] = false;
+        }
+
+       if(tipPosition[0] < -80){
+        console.log("To the left " + tipPosition[0]);
+        keys[39] = false;
+        keys[37] = true;
+
+        if(tipPosition[2] < -70){
+        
+        keys[38] = true;
+
+        action = 1;
+
+      }
+
+       if(tipPosition[2] >= -70){
+        
+
+        keys[38] = false;
+
+
+      }
+
+
+       }
+
+        if (tipPosition[0] > 80) {
+        console.log("To the right " + tipPosition[0]);
+
+        keys[37] = false;
+        keys[39] = true;
+
+        if(tipPosition[2] < -70){
+        
+        keys[38] = true;
+
+        action = 1;
+
+      }
+
+       if(tipPosition[2] >= -70){
+        
+
+        keys[38] = false;
+
+
+      }
+
+       }
+
+       if(direction[2] > direction[1] && direction[2] >  speed[1] > 100 &&  action === 0){
+        keys[32] = true;
+        action = 1;
+
+       }
+      
+    
+ 
+    }
+
+        });
+
+ 
+
 
     var keys,
         lmbDown = false,
@@ -43,7 +122,7 @@ Wolf.Input = (function() {
         var game = $("#game"),
             main = $("#main"),
             renderer = $("#game .renderer");
-        
+
         if (!keys) {
             keys = [];
             
@@ -56,6 +135,8 @@ Wolf.Input = (function() {
                     }
                     
                     keys[e.keyCode] = true;
+
+
                     if (bindings[e.keyCode]) {
                         for (var i=0,n=bindings[e.keyCode].length;i<n;i++) {
                             bindings[e.keyCode][i](e);
@@ -357,3 +438,4 @@ Wolf.Keys = {
     F11     : 122,
     F12     : 123    
 };
+

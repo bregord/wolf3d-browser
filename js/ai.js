@@ -1,34 +1,3 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
- 
-/** 
- * @namespace 
- * @description Enemy AI
- */
 Wolf.AI = (function() {
 
     Wolf.setConsts({
@@ -89,13 +58,20 @@ Wolf.AI = (function() {
     }
 
 
-    /**
-     * @description Entity is going to move in a new direction.
-     *              Called, when actor finished previous moving & located in 
-     *              the 'center' of the tile. Entity will try walking in direction.
-     * @private
-     * @returns {boolean} true if direction is OK, otherwise false.
-     */
+    
+
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_ChangeDir() -Entity is going to move in a new direction. 
+     
+     Returns: 1 if direction is OK, otherwise 0.
+     
+     Notes: 
+        Called, when actor finished previous moving & located in the 'center' of
+        the tile. Entity will try walking in direction.
+
+    -----------------------------------------------------------------------------
+    */
     function changeDir(self, new_dir, level) {
         var oldx, 
             oldy, 
@@ -177,10 +153,11 @@ Wolf.AI = (function() {
         return true;
     }
 
-    /**
-     * @description Entity is going to turn on a way point. 
-     * @private
-     */
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_Path() -Entity is going to turn on a way point. 
+    -----------------------------------------------------------------------------
+    */
     function path(self, game) {
         var level = game.level;
         if (level.tileMap[self.x >> Wolf.TILESHIFT][self.y >> Wolf.TILESHIFT] & Wolf.WAYPOINT_TILE) {
@@ -211,11 +188,21 @@ Wolf.AI = (function() {
         }
     }
 
-
-    /**
-     * @description Called by entities that ARE NOT chasing the player. 
-     * @private
-     */
+    
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_FindTarget() -Called by entities that ARE NOT chasing the player. 
+     
+     Parameters: 
+     
+     Returns: 
+        If the player is detected (by sight, noise, or proximity), the entity
+        is put into its combat frame and true is returned.
+     
+     Notes: 
+        Incorporates a random reaction delay.
+    -----------------------------------------------------------------------------
+    */
     function findTarget(self, game, tics) {
         var level = game.level,
             player = game.player;
@@ -295,11 +282,11 @@ Wolf.AI = (function() {
     }
 
 
-
-    /**
-     * @description As dodge(), but doesn't try to dodge.  
-     * @private
-     */
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_Chase() -As AI_Dodge, but doesn't try to dodge. 
+    -----------------------------------------------------------------------------
+    */
     function chase(self, game) {
         var level = game.level,
             player = game.player,
@@ -392,10 +379,12 @@ Wolf.AI = (function() {
     }
 
 
-    /**
-     * @description Run Away from player.  
-     * @private
-     */
+
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_Retreat() -Run Away from player. 
+    -----------------------------------------------------------------------------
+    */
     function retreat(self, game) {
         var level = game.level,
             player = game.player,
@@ -442,11 +431,12 @@ Wolf.AI = (function() {
     }
 
     
-    /**
-     * @description Attempts to choose and initiate a movement for entity
-     *              that sends it towards the player while dodging.
-     * @private
-     */
+    /*
+    -----------------------------------------------------------------------------
+     Function: AI_Dodge() -Attempts to choose and initiate a movement for entity
+                            that sends it towards the player while dodging. 
+    -----------------------------------------------------------------------------
+    */
     function dodge(self, game) {
         var level = game.level,
             player = game.player,
@@ -532,16 +522,10 @@ Wolf.AI = (function() {
     }
     
 
-    /**
-     * @memberOf Wolf.AI
-     */
     function T_Stand(self, game, tics) {
         findTarget(self, game, tics);
     }
     
-    /**
-     * @memberOf Wolf.AI
-     */
     function T_Path(self, game, tics) {
         var level = game.level;
         if (findTarget(self, game, tics)) {
@@ -563,10 +547,12 @@ Wolf.AI = (function() {
     }
 
 
-    /**
-     * @description Try to damage the player.
-     * @memberOf Wolf.AI
-     */
+
+    /*
+    -----------------------------------------------------------------------------
+     Function: T_Shoot -Try to damage the player.
+    -----------------------------------------------------------------------------
+    */
     function T_Shoot(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -638,10 +624,6 @@ Wolf.AI = (function() {
     }
     
 
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_Chase(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -688,10 +670,6 @@ Wolf.AI = (function() {
     }
     
 
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_DogChase(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -721,10 +699,13 @@ Wolf.AI = (function() {
     }
     
 
-    /**
-     * @description Try to damage the player.
-     * @memberOf Wolf.AI
-     */
+    /*
+    -----------------------------------------------------------------------------
+     Function: T_BossChase
+     Notes: 
+        They retreat if too close to player.
+    -----------------------------------------------------------------------------
+    */
     function T_BossChase(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -764,10 +745,6 @@ Wolf.AI = (function() {
     }
     
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_Fake(self, game, tics) {
         var level = game.level,
             player = game.player;
@@ -792,10 +769,6 @@ Wolf.AI = (function() {
     }
 
     
-    /**
-     * @description 
-     * @private
-     */
     function T_Advance(self, game, think, tics) {
         var level = game.level,
             move, door;
@@ -839,10 +812,26 @@ Wolf.AI = (function() {
         }
     }
     
-    /**
-     * @description Moves object for distance in global units, in self.dir direction. 
-     * @memberOf Wolf.AI
-     */
+
+    /*
+    -----------------------------------------------------------------------------
+     Function: T_Move() -Moves object for distance in global units, 
+                        in ob->dir direction. 
+     
+     Parameters: 
+     
+     Returns: 
+        If the player is detected (by sight, noise, or proximity), the entity
+        is put into its combat frame and true is returned.
+     
+     Notes: 
+        ob->x    = adjusted for new position
+        ob->y
+
+        Actors are not allowed to move inside the player.
+        Does NOT check to see if the move is tile map valid.
+    -----------------------------------------------------------------------------
+    */
     function T_Move(self, game, dist) {
         var level = game.level,
             player = game.player;
@@ -875,10 +864,6 @@ Wolf.AI = (function() {
         }
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_Ghosts(self, game, tics) {
         var level = game.level,
             player = game.player;
@@ -893,10 +878,6 @@ Wolf.AI = (function() {
         T_Advance(self, game, chase, tics);
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_Bite(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -917,10 +898,11 @@ Wolf.AI = (function() {
     }
 
 
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
+    /*
+    -----------------------------------------------------------------------------
+     Function: T_UShoot -[UberMutant]
+    -----------------------------------------------------------------------------
+    */
     function T_UShoot(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -939,10 +921,6 @@ Wolf.AI = (function() {
     }
     
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_Launch(self, game, tics) {
         var level = game.level,
             player = game.player,
@@ -1137,10 +1115,6 @@ Wolf.AI = (function() {
         self.tile.y = self.y >> Wolf.TILESHIFT;
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_BJRun(self, game, tics) {
         var move = Wolf.BJRUNSPEED * tics;
 
@@ -1156,27 +1130,15 @@ Wolf.AI = (function() {
         }
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_BJJump(self, game, tics) {
         //var move = Wolf.BJRUNSPEED * tics;
         //T_Move(self, game, move);
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_BJYell(self, game, tics) {
         Wolf.Sound.startSound(null, null, 0, Wolf.CHAN_VOICE, "sfx/082.wav", 1, Wolf.ATTN_NORM, 0);
     }
     
-    /**
-     * @description 
-     * @memberOf Wolf.AI
-     */
     function T_BJDone(self, game, tics) {
         Wolf.Player.playstate = Wolf.ex_victory; // exit castle tile
         //Wolf.Player.playstate = Wolf.ex_complete;

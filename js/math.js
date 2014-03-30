@@ -1,29 +1,3 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
 /** 
  * @namespace 
  * @description Math functions and lookup tables
@@ -68,7 +42,7 @@ Wolf.Math = (function() {
 
         // dir of delta tooks dx{-1|0|1}+1 & dy{-1|0|1}+1 and give direction
         dir4d = [
-            [dir4_nodir, dir4_west , dir4_nodir],
+            [dir4_nodir, dir4_west , dir4_nodir]
             [dir4_south, dir4_nodir, dir4_north],
             [dir4_nodir, dir4_east , dir4_nodir]
         ],

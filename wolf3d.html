@@ -1,11 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
-	<!--
-	Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-	
-	This file is part of the WOLF3D Browser Version GPL Source Code. 
-	-->
 	<meta charset="UTF-8">
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="cache-control" content="max-age=0" />
@@ -16,9 +11,25 @@
 	<title>Wolfenstein 3D</title>
     <link rel="stylesheet" href="styles.css">
 
+<script src="//js.leapmotion.com/0.4.0/leap.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <script src="js/jquery-1.7.1.min.js"></script>
     <script src="js/load.js"></script>
+    
+    <script src ="./leap.js"></script>
+    <script>
+LeapManager.init({
+    maxCursors:1,
+});
+</script>
+    <!-- Include Leapstrap CSS -->
+<link rel="stylesheet" href="//wilkesalex.github.io/leapstrap/dist/css/leapstrap.css" />
+<!-- Include jQuery (maybe you already do?) -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+<!-- Include Leap (maybe you already do?) -->
+<script src="//js.leapmotion.com/0.3.0-beta3/leap.js"></script>
+<!-- Include Leapstrap JS -->
+<script src="//wilkesalex.github.io/leapstrap/dist/js/leapstrap.js"></script>
 
 </head>
 <body>
@@ -227,6 +238,9 @@
         </div>
     </div>
 </div>
+
+<!-- Init Leap, Set all "a" interactive, use 1 Leap cursor/finger -->
+<script>LeapManager.init({maxCursors:1});</script>
 
 </body>
 </html>

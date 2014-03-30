@@ -1,31 +1,3 @@
-/*
-* ===========================================================================
-* 
-* Wolf3D Browser Version GPL Source Code
-* Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
-* 
-* This file is part of the Wolf3D Browser Version GPL Source Code ("Wolf3D Browser Source Code").  
-* 
-* Wolf3D Browser Source Code is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 2 of the License, or
-* (at your option) any later version.
-* 
-* Wolf3D Browser Source Code is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-* 
-* You should have received a copy of the GNU General Public License version 2
-* along with Wolf3D Browser Source Code.  If not, see <http://www.gnu.org/licenses/>.
-* 
-* If you have questions concerning this license, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
-* 
-* ===========================================================================
-*/
-
-
-
 /** 
  * @namespace 
  * @description Artificial intelligence
@@ -52,7 +24,7 @@ Wolf.ActorAI = (function() {
         var pos = game.player.position;
         
         switch (self.type) {
-            case Wolf.en_mutant:
+            case Wolf.en_mutant:  //added 0's to all of these in order to check if sounds are correct... gsh
                 Wolf.Sound.startSound(pos, self, 1, Wolf.CHAN_VOICE, "sfx/037.wav", 1, Wolf.ATTN_NORM, 0);
                 break;
 
@@ -163,12 +135,19 @@ Wolf.ActorAI = (function() {
         hitler.flags = self.flags | Wolf.FL_SHOOTABLE;
         hitler.sprite = Wolf.Sprites.getNewSprite(level);
 
+        // Don't want to increase monster count since Hitler is just changing form.. right?
+        //if (++level.state.killedMonsters == level.state.totalMonsters) {
+        //    Wolf.Game.notify("You killed the last enemy!");
+        //}
     }
     
     /* Angel of Death */
     
+    
+    // Angel can't shoot more then 3 sparks in a row. It will get tired!
     var angel_temp = 0;
 
+    
     /**
      * @description Play Angel of Death Breathing sound.
      * @memberOf Wolf.ActorAI
